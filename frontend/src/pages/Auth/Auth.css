@@ -1,0 +1,212 @@
+/* Register */
+.register-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    background: #f4ebf1;;
+}
+
+.register-form {
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    right: 35%;
+    bottom: 10%;
+    width: 30%;
+    height: 80%;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+}
+
+.register-title {
+    text-align: center;
+    text-transform: uppercase;
+    color:#664d03;
+    font-family: 'Lora', serif;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+.register-form .user-box {
+    position: relative;
+}
+
+.register-form .user-box input {
+    width: 100%;
+    padding: 16px 0 4px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .9);
+    border: none;
+    border-bottom: 1px solid #664d03;
+    outline: none;
+    background: transparent;
+}
+
+.register-form .user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #664d03;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.register-form .user-box input:focus~label,
+.register-form .user-box input:valid~label {
+    top: -16px;
+    left: 0;
+    color: rgba(0, 0, 0, .6);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Login */
+.login-section,
+.forgot-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    background: #f4ebf1;
+}
+
+.login-form,
+.forgot-form {
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    right: 35%;
+    bottom: 40%;
+    width: 30%;
+    height: 50%;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+}
+
+.login-title,
+.forgot-title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #664d03;
+    font-family: 'Lora', serif;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+.login-form .user-box,
+.forgot-form .user-box {
+    position: relative;
+}
+
+.login-form .user-box input,
+.forgot-form .user-box input {
+    width: 100%;
+    padding: 16px 0 4px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .9);
+    border: none;
+    border-bottom: 1px solid #664d03;
+    outline: none;
+    background: transparent;
+}
+
+.login-form .user-box label,
+.forgot-form .user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #664d03;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.login-form .user-box input:focus~label,
+.login-form .user-box input:valid~label,
+.forgot-form .user-box input:focus~label,
+.forgot-form .user-box input:valid~label {
+    top: -16px;
+    left: 0;
+    color: rgba(0, 0, 0, .6);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* Button */
+
+.auth-button {
+    --primary-color: #645bff;
+    --secondary-color: #fff;
+    --hover-color: #7cc75c;
+    --arrow-width: 10px;
+    --arrow-stroke: 2px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 16px;
+    color: var(--secondary-color);
+    padding: 12px 20px;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+}
+
+.auth-button .arrow-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-button .arrow {
+    margin-top: 1px;
+    width: var(--arrow-width);
+    background: var(--primary-color);
+    height: var(--arrow-stroke);
+    position: relative;
+    transition: 0.2s;
+}
+
+.auth-button .arrow::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: solid var(--secondary-color);
+    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+    display: inline-block;
+    top: -3px;
+    right: 3px;
+    transition: 0.2s;
+    padding: 3px;
+    transform: rotate(-45deg);
+}
+
+.auth-button:hover {
+    background-color: var(--hover-color);
+}
+
+.auth-button:hover .arrow {
+    background: var(--secondary-color);
+}
+
+.auth-button:hover .arrow:before {
+    right: 0;
+}
+
+form .auth-button {
+    margin: 0 auto;
+}

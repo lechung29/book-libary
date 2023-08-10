@@ -1,0 +1,19 @@
+.admin-menu-title {
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    background-color: #333;
+    font-size: 28px;
+}
+
+.admin-menu {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 75%;
+}
+.menu-btn {
+    min-width: 120px;
+}

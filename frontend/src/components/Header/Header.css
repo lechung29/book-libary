@@ -1,0 +1,64 @@
+.header-top, 
+.header-bottom {
+    background: #f4ebf1;
+}
+
+/* Logo */
+.logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+/* Navbar */
+.list-page-item {
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+/* auth button */
+
+.auth-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.auth-btn:hover {
+    background-color: #23c483;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.auth-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Search */
+.search-title {
+    font-size: 28px;
+    font-family: 'Lora', serif;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: #664d03;
+}
+
+.search-quote {
+    font-size: 14px;
+    font-family: 'Lora', serif;
+    letter-spacing: 2px;
+    color: #000;
+    opacity: 0.8;
+}

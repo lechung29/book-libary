@@ -1,0 +1,29 @@
+.dashboard-section {
+    background: #f4ebf1;
+    height: 80vh;
+}
+.admin-content {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 75%;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.admin-content-title {
+    color: #fff;
+    font-weight: 500;
+    font-size: 28px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    background-color: #333;
+}
+
+.admin-content-item {
+    letter-spacing: 2px;
+    color: #000;
+    opacity: 1;
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    padding: 8px 32px;
+}
