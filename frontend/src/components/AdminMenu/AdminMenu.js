@@ -13,7 +13,7 @@ const AdminMenu = () => {
                 <NavLink to="/dashboard/admin/create-product" className="">
                     <button className='auth-btn menu-btn'>Sách</button>
                 </NavLink>
-                <NavLink to="/dashboard/admin/users" className="">
+                <NavLink to="/dashboard/admin/all-users" className="">
                     <button className='auth-btn menu-btn'>Người dùng</button>
                 </NavLink>
                 <NavLink to="/dashboard/admin/rents" className="">

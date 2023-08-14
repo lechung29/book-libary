@@ -13,3 +13,30 @@
 .gap-30 {
     gap: 30px;
 }
+
+.opacity-8 {
+    opacity: 0.8;
+}
+
+.opacity-6 {
+    opacity: 0.6;
+}
+
+.font-14 {
+    font-size: 14px!important;
+}
+
+.font-13 {
+    font-size: 13px!important;
+}
+
+.font-primary {
+    font-family: 'Lora', serif;
+    letter-spacing: 1.5px;
+}
+
+.font-sub {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1.5px;
+}
+

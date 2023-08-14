@@ -1,3 +1,7 @@
+.text-link:hover {
+    color: #fff!important;
+}
+
 /* Register */
 .register-section {
     display: flex;

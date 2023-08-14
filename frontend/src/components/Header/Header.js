@@ -5,9 +5,10 @@ import {Link, NavLink} from 'react-router-dom'
 import { BsBook } from "react-icons/bs";
 import { MdOutlinePolicy } from "react-icons/md";
 import { BsBag } from "react-icons/bs";
-import { FiSettings, IconName } from "react-icons/fi";
+import { FiSettings} from "react-icons/fi";
 import {useAuth} from '../../context/auth'
 import toast from 'react-hot-toast'
+import SearchForm from '../Form/SearchForm';
 const Header = () => {
   const [auth, setAuth] = useAuth()
   
@@ -25,10 +26,10 @@ const Header = () => {
       <div className='header-top px-5 py-3'>
         <div className='container-fluid pt-2'>
           <div className='row d-flex align-items-center justify-content-between'>
-            <div className='logo-brand col-3 text-center'>
+            <Link to="/"className='text-decoration-none logo-brand col-3 text-center'>
               <span className='logo-text text-success text-decoration-underline'>book</span>
               <span className='logo-text text-warning-emphasis'>lib</span>
-            </div>
+            </Link>
             <div className='col-6 gap-30 d-flex justify-content-center align-items-center'>
               <NavLink className="list-page-item text-uppercase text-decoration-none text-black" to="/"><BsBook className='mx-1'/> Trang chủ</NavLink>
               <NavLink className="list-page-item text-uppercase text-decoration-none text-black" to="/about"><MdOutlinePolicy className='mx-1'/> Chính sách & Điều khoản</NavLink>
@@ -43,7 +44,7 @@ const Header = () => {
                   </>
                 ) : (
                   <>
-                    <Link to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`} className='text-decoration-none'><button className='auth-btn d-flex align-items-center justify-content-betwwee text-decoration-none'><FiSettings className='mx-1'/><span>Cài đặt</span></button></Link>
+                    <Link to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`} className='text-decoration-none'><button className='auth-btn d-flex align-items-center justify-content-betwwee text-decoration-none'><FiSettings className='mx-1'/><span>Quản lý</span></button></Link>
                     <Link to='/login' onClick={handleLogout}><button className='auth-btn'>Đăng xuất</button></Link>
                   </>
                 )
@@ -54,12 +55,14 @@ const Header = () => {
       </div>
       <div className='header-bottom px-5 pt-1 pb-4'>
         <div className='container-fluid'>
-          <div className='row d-flex align-items-center'>
+          <div className='row d-flex justify-content-center align-items-center'>
             <div className='col-12 text-center'>
               <div className='search-title'>Mới & Thịnh hành</div>
               <p className='search-quote py-2'>Khám phá thế giới mới từ những cuốn sách</p>
             </div>
-            
+          <div className='row d-flex justify-content-center'>
+            <SearchForm />
+          </div>
           </div>
         </div>
       </div>

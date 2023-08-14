@@ -5,6 +5,8 @@ import morgan from 'morgan'
 import { connect } from 'mongoose'
 import connectDB from './config/db.js'
 import authRoutes from './routes/authRoute.js'
+import categoryRoutes from './routes/categoryRoute.js'
+import productRoutes from './routes/productRoute.js'
 import cors from 'cors'
 
 //config env
@@ -22,6 +24,8 @@ app.use(morgan('dev'))
 
 //routes
 app.use("/api/v1/auth", authRoutes)
+app.use("/api/v1/category", categoryRoutes)
+app.use("/api/v1/product", productRoutes)
 
 const PORT = process.env.PORT || 8080
 

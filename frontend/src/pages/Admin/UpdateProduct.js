@@ -6,11 +6,11 @@ import Layout from '../../components/Layout/Layout'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import {Select} from 'antd'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 
 const {Option} = Select
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
   const [categories, setCategories] = useState([])
   const [name, setName] = useState("")
   const [author, setAuthor] = useState("")
@@ -19,8 +19,32 @@ const CreateProduct = () => {
   const [category, setCategory] = useState("")
   const [quantity, setQuantity] = useState("")
   const [photo, setPhoto] = useState("")
+  const [id, setId] = useState("")
 
   const navigate = useNavigate()
+  const params = useParams()
+
+  //Lấy 1 sản phẩm
+  const getSingleProduct = async () => {
+    try {
+        const { data } = await axios.get(`/api/v1/product/get-product/${params.slug}`)
+        setName(data?.product.name)
+        setId(data.product._id)
+        setAuthor(data.product.author)
+        setDescription(data.product.description)
+        setPrice(data.product.price)
+        setQuantity(data.product.quantity)
+        setCategory(data.product.category._id)
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getSingleProduct()
+  }, [])
+
+  //Lấy tất cả thể loại sách
   const getAllCategory = async () => {
     try {
       const {data} = await axios.get("/api/v1/category/get-category")
@@ -36,7 +60,8 @@ const CreateProduct = () => {
     getAllCategory()
   }, [])
 
-  const handleCreate = async (e) => {
+  //Xử lý cập nhật
+  const handleUpdate = async (e) => {
     e.preventDefault()
     try {
       const productData = new FormData()
@@ -46,10 +71,10 @@ const CreateProduct = () => {
       productData.append("price",price)
       productData.append("quantity",quantity)
       productData.append("category",category)
-      productData.append("photo",photo)
-      const {data} = await axios.post('/api/v1/product/create-product', productData)
+      photo && productData.append("photo",photo)
+      const {data} = await axios.put(`/api/v1/product/update-product/${id}`, productData)
       if (data?.success) {
-        toast.success("Tạo mới sách thành công!")
+        toast.success("Cập nhật sách thành công!")
         navigate('/dashboard/admin/all-products')
       } else {
         toast.error(data?.message)
@@ -57,6 +82,20 @@ const CreateProduct = () => {
     } catch (error) {
       console.log(error)
       toast.error("Có lỗi xảy ra!")
+    }
+  }
+
+  //Xử lý xóa
+  const handleDelete = async () => {
+    try {
+        let answer = window.prompt("Bạn chắc chắn xóa sản phẩm này?")
+        if (!answer) return;
+        const {data} = await axios.delete(`/api/v1/product/delete-product/${id}`)
+        toast.success("Xóa sản phẩm thành công!")
+        navigate("/dashboard/admin/all-products")
+    } catch (error) {
+        console.log(error)
+        toast.error("Có lỗi xảy ra!")
     }
   }
   return (
@@ -75,8 +114,9 @@ const CreateProduct = () => {
                       placeholder="Chọn thể loại sách" 
                       size='large' 
                       showSearch 
-                      className='form-select mb-2 font-primary font-14'
+                      className='form-select mb-2 font-primary'
                       onChange={(value) => {setCategory(value)}}
+                      value={category}
                     >
                       {
                         categories?.map(c => (
@@ -85,7 +125,7 @@ const CreateProduct = () => {
                       }
                     </Select>
                     <div className='mb-2'>
-                      <label className='btn btn-outline-secondary font-primary font-14 col-12'>
+                      <label className='btn btn-outline-secondary font-primary col-12'>
                         {photo ? photo.name : "Tải ảnh lên"}
                         <input 
                           type='file' 
@@ -97,10 +137,19 @@ const CreateProduct = () => {
                       </label>
                     </div>
                     <div className='mb-2'>
-                      { photo && (
+                      { photo ? (
                         <div className='text-center'>
                           <img 
                             src={URL.createObjectURL(photo)} 
+                            alt='book_photo' 
+                            height={'200px'} 
+                            className='img-responsive'
+                          />
+                        </div>
+                      ) : (
+                        <div className='text-center'>
+                          <img 
+                            src={`/api/v1/product/product-image/${id}`} 
                             alt='book_photo' 
                             height={'200px'} 
                             className='img-responsive'
@@ -113,7 +162,7 @@ const CreateProduct = () => {
                         type='text' 
                         value={name} 
                         placeholder='Nhập tên sách' 
-                        className='form-control font-primary font-14'
+                        className='form-control font-primary'
                         onChange={(e) => setName(e.target.value)}
                       />
                     </div>
@@ -122,7 +171,7 @@ const CreateProduct = () => {
                         type='text' 
                         value={author} 
                         placeholder='Nhập tên tác giả' 
-                        className='form-control font-primary font-14'
+                        className='form-control font-primary'
                         onChange={(e) => setAuthor(e.target.value)}
                       />
                     </div>
@@ -131,7 +180,7 @@ const CreateProduct = () => {
                         type='text' 
                         value={description} 
                         placeholder='Nhập mô tả sách' 
-                        className='form-control font-primary font-14'
+                        className='form-control font-primary'
                         onChange={(e) => setDescription(e.target.value)}
                       />
                     </div>
@@ -140,7 +189,7 @@ const CreateProduct = () => {
                         type='text' 
                         value={price} 
                         placeholder='Nhập giá cho thuê' 
-                        className='form-control font-primary font-14'
+                        className='form-control font-primary'
                         onChange={(e) => setPrice(e.target.value)}
                       />
                     </div>
@@ -150,17 +199,15 @@ const CreateProduct = () => {
                         value={quantity} 
                         min={0}
                         placeholder='Nhập số lượng' 
-                        className='form-control font-primary font-14'
+                        className='form-control font-primary'
                         onChange={(e) => {
                           setQuantity(e.target.value)
                         }}
                       />
                     </div>
                     <div className='mb-3 d-flex gap-20 justify-content-center'>
-                      <button className='auth-btn' onClick={handleCreate}>Tạo mới</button>
-                      <NavLink to="/dashboard/admin/all-products" className='text-decoration-none'>
-                        <button className='auth-btn'>Xem tất cả</button>
-                      </NavLink>
+                      <button className='auth-btn' onClick={handleUpdate}>Cập nhật</button>
+                      <button className='auth-btn' onClick={handleDelete}>Xóa</button>
                     </div>
                   </div>
                 </div>
@@ -172,4 +219,4 @@ const CreateProduct = () => {
   )
 }
 
-export default CreateProduct
+export default UpdateProduct

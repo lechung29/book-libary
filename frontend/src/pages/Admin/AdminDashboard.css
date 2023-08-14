@@ -1,6 +1,11 @@
+.font-primary {
+    font-family: 'Lora', serif;
+    letter-spacing: 1.5px;
+}
+
 .dashboard-section {
     background: #f4ebf1;
-    height: 80vh;
+    min-height: 80vh;
 }
 .admin-content {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -10,6 +15,13 @@
     overflow: hidden;
 }
 
+.admin-content-sub {
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 .admin-content-title {
     color: #fff;
     font-weight: 500;
@@ -26,4 +38,68 @@
     font-family: 'Lora', serif;
     font-size: 14px;
     padding: 8px 32px;
+}
+
+
+/* Action button */
+
+.action-btn {
+    border-radius: 50px;
+    border: 0;
+    background-color: white;
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    transition: all .5s ease;
+    padding: 0 8px;
+    font-family: 'Lora', serif;
+}
+/* Success btn */
+.success-btn:hover {
+    letter-spacing: 3px;
+    background-color: #23c483;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgba(46, 229, 157, 0.4) 0px 7px 29px 0px;
+}
+
+.success-btn:active {
+    letter-spacing: 2px;
+    background-color: #23c483;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgba(46, 229, 157, 0.4) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 100ms;
+}
+
+/* Info btn */
+.info-btn:hover {
+    letter-spacing: 3px;
+    background-color: #0d6efd;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgba(122, 204, 234, 0.4) 0px 7px 29px 0px;
+}
+
+.info-btn:active {
+    letter-spacing: 2px;
+    background-color: #0d6efd;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgba(122, 204, 234, 0.4) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 100ms;
+}
+
+/* Error btn */
+.error-btn:hover {
+    letter-spacing: 3px;
+    background-color: #dc3545;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgba(190, 12, 60, 0.4) 0px 7px 29px 0px;
+}
+
+.error-btn:active {
+    letter-spacing: 2px;
+    background-color: #dc3545;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgba(190, 12, 60, 0.4) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 100ms;
 }

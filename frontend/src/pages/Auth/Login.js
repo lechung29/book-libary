@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import './Auth.css'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
+import '../../App.css'
 
 const Login = () => {
     const [email, setEmail] = useState("")
