@@ -1,5 +1,5 @@
 import express from 'express'
-import {forgotPasswordController, loginController, registerController} from '../controllers/authController.js'
+import {deleteUserController, forgotPasswordController, getAllOrdersController, getAllUsersController, getOrdersController, loginController, orderStatusController, registerController, updateProfileController} from '../controllers/authController.js'
 import {requireSignIn, isAdmin} from '../middlewares/authMiddleware.js'
 
 //Khởi tạo router
@@ -23,5 +23,24 @@ router.get("/user-auth", requireSignIn, (req, res) => {
 router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
     res.status(200).send({ok : true})
 })
+
+//Lấy tất cả người dùng
+router.get("/all-users",requireSignIn, isAdmin, getAllUsersController)
+
+
+//Xóa người dùng
+router.delete('/delete-user/:id', requireSignIn, isAdmin, deleteUserController )
+
+//Cập nhật profile
+router.put('/profile', requireSignIn, updateProfileController)
+
+//Lấy đơn thuê
+router.get('/orders', requireSignIn, getOrdersController)
+
+//Tất cả đơn thuê
+router.get('/all-orders', requireSignIn, isAdmin, getAllOrdersController)
+
+//Cập nhật trạng thái thuê
+router.put('/order-status/:orderId', requireSignIn, isAdmin, orderStatusController)
 
 export default router

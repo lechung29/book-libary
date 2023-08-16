@@ -30,6 +30,14 @@
     font-size: 13px!important;
 }
 
+.font-15 {
+    font-size: 15px !important;
+}
+
+.font-16 {
+    font-size: 16px !important;
+}
+
 .font-primary {
     font-family: 'Lora', serif;
     letter-spacing: 1.5px;

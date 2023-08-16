@@ -1,6 +1,6 @@
 import express from 'express'
 import {requireSignIn, isAdmin} from '../middlewares/authMiddleware.js'
-import { createProductController, deleteProductController, getProductController, getSingleProductController, productCountController, productFilterController, productImageController, productListController, searchProductController, updateProductController, updatedProductListController } from '../controllers/productController.js';
+import { createProductController, deleteProductController, getProductController, getSingleProductController, paymentProductController, productCountController, productFilterController, productImageController, productListController, searchProductController, updateProductController, updatedProductListController } from '../controllers/productController.js';
 import formidable from 'express-formidable'
 
 const router = express.Router();
@@ -22,7 +22,7 @@ router.put('/update-product/:pid',
 )
 
 //Hiển thị sản phẩm
-router.get('/get-product', getProductController)
+router.get('/get-product/:page', getProductController)
 
 
 //Hiển thị 1 sản phẩm
@@ -51,5 +51,6 @@ router.get('/updated-product-list', updatedProductListController)
 //Tìm kiếm sản phẩm
 router.get('/search/:keyword', searchProductController)
 
+router.post('/payment', requireSignIn, paymentProductController)
 
 export default router

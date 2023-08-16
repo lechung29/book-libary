@@ -9,6 +9,8 @@ import { FiSettings} from "react-icons/fi";
 import {useAuth} from '../../context/auth'
 import toast from 'react-hot-toast'
 import SearchForm from '../Form/SearchForm';
+import Slider from '../../components/Slider/Slider'
+
 const Header = () => {
   const [auth, setAuth] = useAuth()
   
@@ -31,11 +33,11 @@ const Header = () => {
               <span className='logo-text text-warning-emphasis'>lib</span>
             </Link>
             <div className='col-6 gap-30 d-flex justify-content-center align-items-center'>
-              <NavLink className="list-page-item text-uppercase text-decoration-none text-black" to="/"><BsBook className='mx-1'/> Trang chủ</NavLink>
-              <NavLink className="list-page-item text-uppercase text-decoration-none text-black" to="/about"><MdOutlinePolicy className='mx-1'/> Chính sách & Điều khoản</NavLink>
+              <NavLink className="list-page-item text-uppercase d-flex align-items-center text-decoration-none text-black" to="/"><BsBook className='mx-1 icons'/> <p className='mb-0 font-14'>Trang chủ</p></NavLink>
+              <NavLink className="list-page-item text-uppercase d-flex align-items-center text-decoration-none text-black" to="/policy"><MdOutlinePolicy className='mx-1 icons'/><p className='mb-0 font-14'>Chính sách & điều khoản</p></NavLink>
             </div>
             <div className='col-3 gap-20 d-flex justify-content-end align-items-center'>
-              <Link to='' className='text-decoration-none'><button className='auth-btn d-flex align-items-center justify-content-betwwee text-decoration-none'><BsBag className='mx-1'/><span>Giỏ</span></button></Link>
+              <Link to='/cart' className='text-decoration-none'><button className='auth-btn d-flex align-items-center justify-content-betwwee text-decoration-none'><BsBag className='mx-1'/><span>Giỏ</span></button></Link>
               {
                 !auth.user ? (
                   <>
@@ -60,8 +62,13 @@ const Header = () => {
               <div className='search-title'>Mới & Thịnh hành</div>
               <p className='search-quote py-2'>Khám phá thế giới mới từ những cuốn sách</p>
             </div>
-          <div className='row d-flex justify-content-center'>
+          <div className='row mb-5 d-flex justify-content-center'>
             <SearchForm />
+          </div>
+          <div className='row mt-3 d-flex justify-content-center'>
+            <div className='col-6 text-center'>
+              <Slider />
+            </div>
           </div>
           </div>
         </div>

@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import '../Admin/AdminDashboard.css'
-import UserMenu from '../../components/UserMenu/UserMenu'
 import { useAuth } from '../../context/auth'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import Layout from '../../components/Layout/Layout'
 import  '../Auth/Auth.css'
+import AdminMenu from '../../components/AdminMenu/AdminMenu'
+
 const Profile = () => {
     const [auth, setAuth] = useAuth()
     const [name, setName] = useState("")
@@ -53,7 +54,7 @@ const Profile = () => {
             </div>
             <div className='row d-flex justify-content-center'>
               <div className='col-4 d-flex justify-content-center'>
-                <UserMenu />
+                <AdminMenu />
               </div>
               <div className='col-8 d-flex justify-content-center'>
                 <div className='admin-content'>

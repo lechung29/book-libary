@@ -86,6 +86,9 @@ const CreateCategory = () => {
         <div className='dashboard-section px-5 pt-2'>
           <div className='container-fluid pt-4'>
             <div className='row d-flex justify-content-center'>
+              <div className='col-10 pt-5 justify-content-center home-border d-flex'></div>
+            </div>
+            <div className='row d-flex justify-content-center'>
               <div className='col-4 d-flex justify-content-center'>
                 <AdminMenu />
               </div>

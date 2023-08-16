@@ -1,17 +1,22 @@
-import React, {useEffect, useState} from 'react'
-import '../Admin/AdminDashboard.css'
-import UserMenu from '../../components/UserMenu/UserMenu'
-import { useAuth } from '../../context/auth'
+import React , {useState, useEffect } from 'react'
+import AdminMenu from '../../components/AdminMenu/AdminMenu'
 import Layout from '../../components/Layout/Layout'
 import axios from 'axios'
 import moment from 'moment'
+import toast from 'react-hot-toast'
+import { useAuth } from '../../context/auth'
+import { Select } from 'antd'
 
-const Rent = () => {
+const {Option} = Select
+
+const AdminOrder = () => {
+    const [status, setStatus] = useState(["Chưa xử lý", "Đã thanh toán","Đang thuê" ,"Đã trả"])
+    const [changeStatus, setChangeStatus] = useState("")
     const [orders, setOrders] = useState([])
     const [auth, setAuth] = useAuth();
     const getOrders =  async () => {
         try {
-            const {data} = await axios.get('/api/v1/auth/orders')
+            const {data} = await axios.get('/api/v1/auth/all-orders')
             setOrders(data)
         } catch (error) {
             console.log(error)
@@ -21,8 +26,17 @@ const Rent = () => {
     useEffect(() => {
         if (auth?.token) getOrders()
     }, [auth?.token])
-    return (
-    <Layout title={"Quản lý đơn thuê"}>
+
+    const handleChange = async (orderId, value) => {
+        try {
+            const {data} = await axios.put(`/api/v1/auth/order-status/${orderId}`, {status: value})
+            getOrders();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+  return (
+    <Layout title={"Tất cả đơn thuê"}>
         <div className='dashboard-section px-5 pt-2'>
           <div className='container-fluid pt-4'>
             <div className='row d-flex justify-content-center'>
@@ -30,7 +44,7 @@ const Rent = () => {
             </div>
             <div className='row d-flex justify-content-center'>
               <div className='col-4 d-flex justify-content-center'>
-                <UserMenu />
+                <AdminMenu />
               </div>
               <div className='col-8 d-flex justify-content-center'>
                 <div className='admin-content-sub'>
@@ -42,8 +56,9 @@ const Rent = () => {
                                 <div className='border'>
                                     <table className='table'>
                                         <thead>
-                                            <tr>
+                                            <tr className='text-center'>
                                                 <th className="font-primary font-15" scope='col'>STT</th>
+                                                <th className="font-primary font-15" scope='col'>Người thuê</th>
                                                 <th className="font-primary font-15" scope='col'>Trạng thái</th>
                                                 <th className="font-primary font-15" scope='col'>Số lượng</th>
                                                 <th className="font-primary font-15" scope='col'>Tổng cộng</th>
@@ -51,12 +66,24 @@ const Rent = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td className="font-primary font-15">{i + 1}</td>
-                                                <td className="font-primary font-15">{o?.status}</td>
-                                                <td className="font-primary font-15">{o?.products?.length}</td>
-                                                <td className="font-primary font-15">{o?.totals}VND</td>
-                                                <td className="font-primary font-15">{moment(o?.creatAt).from()}</td>
+                                            <tr className='text-center'>
+                                                <td className="font-primary font-15" scope='col'>{i + 1}</td>
+                                                <td className="font-primary font-15" scope='col'>{o?.customer?.name}</td>
+                                                <td className='font-primary font-15' scope='col'>
+                                                    <Select bordered={false} 
+                                                        onChange={(value) => 
+                                                        handleChange(o._id,value)} 
+                                                        defaultValue={o?.status}
+                                                        className='font-primary'
+                                                    >
+                                                        {status.map((s,i) => (
+                                                            <Option className='font-primary' key={i} value={s}>{s}</Option>
+                                                        ))}
+                                                    </Select>
+                                                </td>
+                                                <td className="font-primary font-15" scope='col'>{o?.products?.length}</td>
+                                                <td className="font-primary font-15" scope='col'>{o?.totals}VND</td>
+                                                <td className="font-primary font-15" scope='col'>{moment(o?.creatAt).from()}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -92,4 +119,4 @@ const Rent = () => {
   )
 }
 
-export default Rent
+export default AdminOrder

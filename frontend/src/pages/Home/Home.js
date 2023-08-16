@@ -8,6 +8,7 @@ import './Home.css'
 import {Checkbox , Radio} from 'antd'
 
 
+
 const Home = () => {
   const [auth, setAuth] = useAuth();
   const [products, setProducts] = useState([])
@@ -144,13 +145,13 @@ const Home = () => {
             <div className='row d-flex justify-content-center'>
               <div className='col-10 d-flex flex-wrap justify-content-start'>
                 {product?.map(p => (
-                  <Link key={p._id} to={`/product/${p.slug}`} className="col-3 d-flex justify-content-center text-decoration-none text-black">
+                  <Link key={p._id} to={`/product/${p.slug}`} className="col-3 mb-4 d-flex justify-content-center text-decoration-none text-black">
                       <div className="book-card" style={{width: '200px'}} key={p._id}>
                           <div className="book-card-body">
                               <h6 className="font-primary text-black mb-0 pt-5 pb-2">{p.name}</h6>
                               <p className='font-primary font-13 opacity-8 pb-3'>{p.author}</p>
                               <p className='font-primary font-13 mb-1 opacity-8 pt-1 pb-3'>Giá: {p.price}VND</p>
-                              <button className='buy-btn'>Thuê ngay</button>
+                              <button className='buy-btn'>Chi tiết</button>
                           </div>
                           <div className='book-card-img'>
                             <img src={`/api/v1/product/product-image/${p._id}`} className="" width={"200px"} height={"250px"} alt={p.name} />
@@ -179,7 +180,7 @@ const Home = () => {
             <div className='row d-flex justify-content-center'>
               <div className='col-10 d-flex flex-wrap justify-content-start'>
                 {updatedProduct?.map(p => (
-                  <Link key={p._id} to={`/product/${p.slug}`} className="col-3 text-decoration-none d-flex justify-content-center text-black">
+                  <Link key={p._id} to={`/product/${p.slug}`} className="col-3 mb-5 text-decoration-none d-flex justify-content-center text-black">
                       <div className="book-card" style={{width: '200px'}} key={p._id}>
                           <div className="book-card-body">
                               <h6 className="font-primary text-black mb-0 pt-5 pb-2">{p.name}</h6>

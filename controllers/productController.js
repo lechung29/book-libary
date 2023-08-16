@@ -1,4 +1,5 @@
 import productModel from '../models/productModel.js'
+import orderModel from '../models/orderModel.js'
 import slugify from 'slugify'
 import fs from 'fs'
 import router from '../routes/productRoute.js'
@@ -95,11 +96,14 @@ export const updateProductController = async (req, res) => {
 //Hiển thị sản phẩm
 export const getProductController = async (req, res) => {
     try {
+        const perPage = 6
+        const page = req.params.page ? req.params.page : 1
         const products = await productModel
             .find({})
             .populate('category')
             .select("-photo")
-            .limit(12)
+            .skip((page-1)*perPage)
+            .limit(perPage)
             .sort({createdAt:-1})
         res.status(200).send({
             success: true,
@@ -180,10 +184,15 @@ export const deleteProductController = async (req, res) => {
 //Lọc sản phẩm
 export const productFilterController = async (req, res) => {
     try {
+        const perPage = 4
         const {check} = req.body
         let args = {}
         if (check.length > 0) args.category = check
-        const products = await productModel.find(args)
+        const products = await productModel
+            .find(args)
+            .select("-photo")
+            .limit(perPage)
+            .sort({createdAt: 1})
         res.status(200).send({
             success: true,
             products,
@@ -250,7 +259,7 @@ export const productCountController = async (req, res) => {
             .find({})
             .select("-photo")
             .limit(count)
-            .sort({createdAt: -1})
+            .sort({updatedAt: -1})
         res.status(200).send({
             success: true,
             products,
@@ -283,5 +292,25 @@ export const productCountController = async (req, res) => {
             message: "Có lỗi xảy ra khi tìm kiếm!",
             error
         })
+    }
+}
+
+//Xác nhận đơn thuê
+export const paymentProductController = async (req, res) => {
+    try {
+        const {cart} = req.body
+        let total = 0
+        cart.map((i) => {
+            total += i.price
+        })
+        const order = new orderModel({
+                    products: cart,
+                    totals: total,
+                    customer: req.user._id
+                })
+        await order.save()
+        res.json({ok: true})
+    } catch (error) {
+        console.log(error)
     }
 }

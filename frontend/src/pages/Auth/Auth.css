@@ -70,6 +70,48 @@
     font-size: 13px;
     font-weight: 500;
 }
+/* Update */
+.update-form {
+    width: 100%;
+    background: transparent;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.update-form .user-box {
+    position: relative;
+}
+
+.update-form .user-box input {
+    width: 100%;
+    padding: 16px 0 4px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .9);
+    border: none;
+    border-bottom: 1px solid #664d03;
+    outline: none;
+    background: transparent;
+}
+
+.update-form .user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #664d03;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.update-form .user-box input:focus~label,
+.update-form .user-box input:valid~label {
+    top: -16px;
+    left: 0;
+    color: rgba(0, 0, 0, .6);
+    font-size: 13px;
+    font-weight: 500;
+}
 
 /* Login */
 .login-section,

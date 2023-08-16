@@ -1,4 +1,5 @@
 import userModel from '../models/userModel.js'
+import orderModel from '../models/orderModel.js'
 import { comparePassword, hashPassword} from '../helpers/authHelper.js'
 import JWT from 'jsonwebtoken'
 
@@ -150,6 +151,129 @@ export const forgotPasswordController =  async (req, res) => {
         res.status(500).send({
             success: false,
             message: "Có lỗi xảy ra!",
+            error
+        })
+    }
+}
+//Lấy tất cả người dùng
+export const getAllUsersController = async (req, res) => {
+    try {
+        const users = await userModel.find({})
+        res.status(200).send({
+            success: true,
+            message: "Hiển thị thành công tất cả người dùng",
+            users
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            error,
+            message: "Có lỗi khi hiển thị tất cả người dùng!"
+        })
+    }
+}
+
+//Xóa người dùng
+export const deleteUserController = async (req, res) => {
+    try {
+        const {id} = req.params
+        await userModel.findByIdAndDelete(id)
+        res.status(200).send({
+            success: true,
+            message: "Xóa người dùng thành công!"
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Có lỗi trong khi xóa người dùng!",
+            error 
+        })
+    }
+}
+
+
+//Cập nhật profile
+export const updateProfileController = async (req, res) => {
+    try {
+        const {name, email, password, address, phone} = req.body
+        const user = await userModel.findById(req.user._id)
+        //password
+        if (password && password.length < 6) {
+            return res.json({error: "Mật khẩu phải dài hơn 6 ký tự"})
+        }
+        const hashedPassword = password ? await hashPassword(password) : undefined 
+        const updateUser = await userModel.findByIdAndUpdate(req.user._id, {
+            name: name || user.name,
+            password: hashedPassword || user.password,
+            phone: phone || user.phone,
+            address: address || user.address
+        }, {new: true})
+        res.status(200).send({
+            success: true,
+            message: 'Cập nhật thành công',
+            updateUser
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({
+            success: false,
+            message: "Có lỗi khi cập nhật thông tin",
+            error
+        })
+    }
+}
+
+//Lấy đơn thuê
+export const getOrdersController = async (req, res) => {
+    try {
+        const orders = await orderModel
+            .find({customer: req.user._id})
+            .populate('products', '-photo')
+            .populate('customer', 'name')
+        res.json(orders);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Có lỗi khi lấy đơn hàng",
+            error
+        })
+    }
+}
+
+//Tất cả đơn thuê
+export const getAllOrdersController = async (req, res) => {
+    try {
+        const orders = await orderModel
+            .find({})
+            .populate('products', '-photo')
+            .populate('customer', 'name')
+            .sort({createdAt: "-1"});
+        res.json(orders);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Có lỗi khi lấy đơn hàng",
+            error
+        })
+    }
+}
+
+//Cập nhật trạng thái
+export const orderStatusController = async (req, res) => {
+    try {
+        const { orderId } = req.params
+        const { status } = req.body
+        const orders = await orderModel.findByIdAndUpdate(orderId, {status}, {new: true})
+        res.json(orders)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success:false,
+            message: "Lỗi khi cập nhật trạng thái",
             error
         })
     }

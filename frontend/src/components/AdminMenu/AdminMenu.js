@@ -16,8 +16,11 @@ const AdminMenu = () => {
                 <NavLink to="/dashboard/admin/all-users" className="">
                     <button className='auth-btn menu-btn'>Người dùng</button>
                 </NavLink>
-                <NavLink to="/dashboard/admin/rents" className="">
+                <NavLink to="/dashboard/admin/all-rents" className="">
                     <button className='auth-btn menu-btn'>Đơn thuê</button>
+                </NavLink>
+                <NavLink to="/dashboard/admin/profile" className="">
+                    <button className='auth-btn menu-btn'>Thông tin</button>
                 </NavLink>
             </div>
         </div>
