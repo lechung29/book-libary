@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../../components/Layout/Layout'
 import {useAuth} from '../../context/auth'
+import { useCart } from '../../context/cart'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Home.css'
 import {Checkbox , Radio} from 'antd'
 
@@ -11,6 +12,7 @@ import {Checkbox , Radio} from 'antd'
 
 const Home = () => {
   const [auth, setAuth] = useAuth();
+  const [cart, setCart] = useCart()
   const [products, setProducts] = useState([])
   const [product, setProduct] = useState([])
   const [categories, setCategories] = useState([])
@@ -19,6 +21,7 @@ const Home = () => {
   const [page,setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [updatedProduct, setUpdatedProduct] = useState([])
+  const navigate = useNavigate()
 
   //Lấy số sản phẩm
   const getTotal = async() => {
@@ -145,19 +148,23 @@ const Home = () => {
             <div className='row d-flex justify-content-center'>
               <div className='col-10 d-flex flex-wrap justify-content-start'>
                 {product?.map(p => (
-                  <Link key={p._id} to={`/product/${p.slug}`} className="col-3 mb-4 d-flex justify-content-center text-decoration-none text-black">
+                  <div key={p._id} className="col-3 mb-4 d-flex justify-content-center text-decoration-none text-black">
                       <div className="book-card" style={{width: '200px'}} key={p._id}>
                           <div className="book-card-body">
                               <h6 className="font-primary text-black mb-0 pt-5 pb-2">{p.name}</h6>
                               <p className='font-primary font-13 opacity-8 pb-3'>{p.author}</p>
                               <p className='font-primary font-13 mb-1 opacity-8 pt-1 pb-3'>Giá: {p.price}VND</p>
-                              <button className='buy-btn'>Chi tiết</button>
+                              <button className='buy-btn' onClick={() => {
+                                setCart([...cart, product])
+                                localStorage.setItem('cart', JSON.stringify([...cart, product]))
+                                toast.success("Đã thêm vào giỏ sách của bạn!!!")
+                              }}>Thuê ngay</button>
                           </div>
                           <div className='book-card-img'>
                             <img src={`/api/v1/product/product-image/${p._id}`} className="" width={"200px"} height={"250px"} alt={p.name} />
                           </div>
                       </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -180,19 +187,23 @@ const Home = () => {
             <div className='row d-flex justify-content-center'>
               <div className='col-10 d-flex flex-wrap justify-content-start'>
                 {updatedProduct?.map(p => (
-                  <Link key={p._id} to={`/product/${p.slug}`} className="col-3 mb-5 text-decoration-none d-flex justify-content-center text-black">
+                  <div key={p._id} className="col-3 mb-5 text-decoration-none d-flex justify-content-center text-black">
                       <div className="book-card" style={{width: '200px'}} key={p._id}>
                           <div className="book-card-body">
                               <h6 className="font-primary text-black mb-0 pt-5 pb-2">{p.name}</h6>
                               <p className='font-primary font-13 opacity-8 pb-3'>{p.author}</p>
                               <p className='font-primary font-13 mb-1 opacity-8 pt-1 pb-3'>Giá: {p.price}VND</p>
-                              <button className='buy-btn'>Chi tiết</button>
+                              <button className='buy-btn' onClick={() => {
+                                setCart([...cart, product])
+                                localStorage.setItem('cart', JSON.stringify([...cart, product]))
+                                toast.success("Đã thêm vào giỏ sách của bạn!!!")
+                              }}>Thuê ngay</button>
                           </div>
                           <div className='book-card-img'>
                             <img src={`/api/v1/product/product-image/${p._id}`} className="" width={"200px"} height={"250px"} alt={p.name} />
                           </div>
                       </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
