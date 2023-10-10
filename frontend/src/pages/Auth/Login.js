@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <Layout title={"Đăng nhập"}>
         <div className='login-section position-relative px-5 py-4'>
-            <div className='login-form'>
+            <div className='col-sm-12 col-md-6 col-lg-4 login-form' style={{minHeight : '400px', minWidth: '420px'}}>
                 <h1 className='login-title pb-4'>Đăng nhập</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3 user-box">

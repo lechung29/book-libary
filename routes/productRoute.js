@@ -51,6 +51,8 @@ router.get('/updated-product-list', updatedProductListController)
 //Tìm kiếm sản phẩm
 router.get('/search/:keyword', searchProductController)
 
+
+//Đặt thuê sách
 router.post('/payment', requireSignIn, paymentProductController)
 
 export default router

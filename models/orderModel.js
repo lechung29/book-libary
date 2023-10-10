@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'Chưa trả',
+        default: 'Chưa xử lý',
         enum: ["Chưa xử lý", "Đã thanh toán", "Đang thuê", "Đã trả"]
     }
 }, {timestamps: true})

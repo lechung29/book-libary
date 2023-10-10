@@ -36,7 +36,7 @@ const ForgotPassword = () => {
     <>
         <Layout title={"Quên mật khẩu"}>
             <div className='forgot-section position-relative px-5 py-4'>
-                <div className='forgot-form'>
+                <div className='forgot-form col-sm-12 col-md-6 col-lg-4' style={{minHeight : '400px', minWidth: '420px'}}>
                     <h1 className='forgot-title pb-4'>Đặt mật khẩu</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3 user-box">
@@ -47,7 +47,7 @@ const ForgotPassword = () => {
                             <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} name="" required/>
                             <label>Mật khẩu</label>
                         </div>
-                        <div className="mb-3 user-box">
+                        <div className="mb-4 user-box">
                             <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} name="" required/>
                             <label>Nhập thể loại sách mà bạn yêu thích</label>
                         </div>

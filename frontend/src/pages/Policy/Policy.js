@@ -7,9 +7,9 @@ const Policy = () => {
         <div className='home-section px-5 pt-4 pb-5'>
             <div className='container-fluid'>
                 <div className='row d-flex justify-content-center mb-4'>
-                    <div className='col-6 d-flex home-border gap-10 pt-5 justify-content-center'>
-                        <h3 className='home-title text-decoration-underline font-primary fw-bold text-uppercase text-success'>Chính sách &</h3>
-                        <h3 className='home-title font-primary fw-bold text-uppercase text-warning-emphasis'>Điều khoản</h3>
+                    <div className='col-lg-6 col-md-9 col-sm-12 d-md-flex home-border gap-10 pt-5 justify-content-center'>
+                        <h4 className='home-title text-decoration-underline font-primary fw-bold text-uppercase text-success'>Chính sách &</h4>
+                        <h4 className='home-title font-primary fw-bold text-uppercase text-warning-emphasis'>Điều khoản</h4>
                     </div>
                 </div>
                 <div className='row pt-5 d-flex justify-content-center mb-4'>

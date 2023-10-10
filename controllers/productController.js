@@ -147,7 +147,7 @@ export const productImageController = async (req, res) => {
     try {
         const product = await productModel.findById(req.params.pid).select("photo")
         if (product.photo.data) {
-            res.set('Content-type',product.photo.contentType)
+            res.set('Content-type', product.photo.contentType)
             return res.status(200).send(product.photo.data)
         }
     } catch (error) {
@@ -295,13 +295,14 @@ export const productCountController = async (req, res) => {
     }
 }
 
+
 //Xác nhận đơn thuê
 export const paymentProductController = async (req, res) => {
     try {
         const {cart} = req.body
         let total = 0
         cart.map((i) => {
-            total += i.price
+            total += i.price    
         })
         const order = new orderModel({
                     products: cart,

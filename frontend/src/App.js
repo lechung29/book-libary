@@ -20,7 +20,6 @@ import Profile from './pages/User/Profile';
 import Rent from './pages/User/Rent';
 import UpdateProduct from './pages/Admin/UpdateProduct';
 import Search from './pages/Search/Search';
-import BookDetail from './pages/BookDetail/BookDetail';
 import Cart from './pages/Cart/Cart';
 import AdminOrder from './pages/Admin/AdminOrders';
 import AdminProfile from './pages/Admin/AdminProfile'
@@ -52,7 +51,6 @@ function App() {
         <Route path='/search' element={<Search />} />
         <Route path='/policy' element={<Policy />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/product/:slug' element={<BookDetail />} />
       </Routes>
     </>
   );

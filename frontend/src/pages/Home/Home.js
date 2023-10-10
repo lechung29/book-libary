@@ -15,6 +15,8 @@ const Home = () => {
   const [cart, setCart] = useCart()
   const [products, setProducts] = useState([])
   const [product, setProduct] = useState([])
+  const [p1, setP1] = useState([])
+  const [p2, setP2] = useState([])
   const [categories, setCategories] = useState([])
   const [check, setCheck] = useState([])
   const [total, setTotal] = useState(0)
@@ -131,13 +133,13 @@ const Home = () => {
         <div className='home-section px-5 pt-4 pb-5'>
           <div className='container-fluid'>
             <div className='row d-flex justify-content-center mb-4 '>
-              <div className='col-6 d-flex home-border gap-10 pt-5 justify-content-center'>
-                <h3 className='home-title text-decoration-underline font-primary fw-bold text-uppercase text-success'>Tất cả</h3>
-                <h3 className='home-title font-primary fw-bold text-uppercase text-warning-emphasis'> sách</h3>
+              <div className='col-lg-6 col-md-9 col-sm-12 d-flex home-border gap-10 pt-5 justify-content-center'>
+                <h4 className='home-title text-decoration-underline font-primary fw-bold text-uppercase text-success'>Tất cả</h4>
+                <h4 className='home-title font-primary fw-bold text-uppercase text-warning-emphasis'> sách</h4>
               </div>
             </div>
             <div className='row d-flex justify-content-center mb-4'>
-              <div className='col-6 d-flex gap-10 flex-wrap justify-content-center'>
+              <div className='col-6 d-flex gap-10 flex-wrap justify-content-start'>
                 {categories?.map(c => 
                   <Checkbox key={c._id} className='font-primary filter-checkbox' onChange={(e) => handleFilter(e.target.checked, c._id)}>
                     {c.name}
@@ -148,17 +150,33 @@ const Home = () => {
             <div className='row d-flex justify-content-center'>
               <div className='col-10 d-flex flex-wrap justify-content-start'>
                 {product?.map(p => (
-                  <div key={p._id} className="col-3 mb-4 d-flex justify-content-center text-decoration-none text-black">
-                      <div className="book-card" style={{width: '200px'}} key={p._id}>
+                  <div key={p._id} className="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 d-flex justify-content-center text-decoration-none text-black">
+                      <div className="book-card" style={{minWidth: '200px', maxWidth: '200px'}}>
                           <div className="book-card-body">
-                              <h6 className="font-primary text-black mb-0 pt-5 pb-2">{p.name}</h6>
-                              <p className='font-primary font-13 opacity-8 pb-3'>{p.author}</p>
-                              <p className='font-primary font-13 mb-1 opacity-8 pt-1 pb-3'>Giá: {p.price}VND</p>
-                              <button className='buy-btn' onClick={() => {
-                                setCart([...cart, product])
-                                localStorage.setItem('cart', JSON.stringify([...cart, product]))
-                                toast.success("Đã thêm vào giỏ sách của bạn!!!")
-                              }}>Thuê ngay</button>
+                              <div className='h-75 text-start'>
+                                <h6 className="font-primary text-black mb-0 pt-5 pb-4">{p.name}</h6>
+                                <p className='font-primary font-13 opacity-8 pb-3 mb-0'>{p.author}</p>
+                                <p className='font-primary font-13 opacity-8 pb-3 mb-0'>Số lượng còn: {p.quantity}</p>
+                                <p className='font-primary font-13 opacity-8 pb-3 mb-0'>Giá: {p.price}VND</p>
+                              </div>
+                              <div className='h-25 d-flex align-items-center justify-content-center'>
+                                <button className='buy-btn' onClick={() => {
+                                  if (p.quantity === 0) {
+                                    toast.error("Hết sách mất rồi!!")
+                                  } else {
+                                    setP1([...p1, p._id])
+                                    if (p2.includes(p._id) || cart.includes(p)) {
+                                    toast.error("Có sách này trong giỏ rồi!")
+                                    console.log(p1)
+                                    } 
+                                    else {
+                                      setCart([...cart, p])
+                                      localStorage.setItem('cart', JSON.stringify([...cart, p]))
+                                      toast.success("Đã thêm vào giỏ sách của bạn!!!")
+                                    }
+                                  }
+                                }}>Thuê ngay</button>
+                              </div>
                           </div>
                           <div className='book-card-img'>
                             <img src={`/api/v1/product/product-image/${p._id}`} className="" width={"200px"} height={"250px"} alt={p.name} />
@@ -179,28 +197,43 @@ const Home = () => {
               )}
             </div>
             <div className='row d-flex justify-content-center mt-5 mb-5 '>
-              <div className='col-6 d-flex home-border gap-10 pt-5 justify-content-center'>
-                <h3 className='home-title text-decoration-underline font-primary fw-bold text-uppercase text-success'>Cập nhật</h3>
-                <h3 className='home-title font-primary fw-bold text-uppercase text-warning-emphasis'> gần đây</h3>
+              <div className='col-lg-6 col-md-9 col-sm-12 d-flex home-border gap-10 pt-5 justify-content-center'>
+                <h4 className='home-title text-decoration-underline font-primary fw-bold text-uppercase text-success'>Cập nhật</h4>
+                <h4 className='home-title font-primary fw-bold text-uppercase text-warning-emphasis'> gần đây</h4>
               </div>
             </div>
             <div className='row d-flex justify-content-center'>
               <div className='col-10 d-flex flex-wrap justify-content-start'>
-                {updatedProduct?.map(p => (
-                  <div key={p._id} className="col-3 mb-5 text-decoration-none d-flex justify-content-center text-black">
-                      <div className="book-card" style={{width: '200px'}} key={p._id}>
+                {updatedProduct?.map(up => (
+                  <div key={up._id} className="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-5 text-decoration-none d-flex justify-content-center text-black">
+                      <div className="book-card" style={{minWidth: '200px', maxWidth: '200px'}} key={up._id}>
                           <div className="book-card-body">
-                              <h6 className="font-primary text-black mb-0 pt-5 pb-2">{p.name}</h6>
-                              <p className='font-primary font-13 opacity-8 pb-3'>{p.author}</p>
-                              <p className='font-primary font-13 mb-1 opacity-8 pt-1 pb-3'>Giá: {p.price}VND</p>
-                              <button className='buy-btn' onClick={() => {
-                                setCart([...cart, product])
-                                localStorage.setItem('cart', JSON.stringify([...cart, product]))
-                                toast.success("Đã thêm vào giỏ sách của bạn!!!")
-                              }}>Thuê ngay</button>
+                              <div className='h-75 text-start'>
+                                <h6 className="font-primary text-black mb-0 pt-5 pb-2">{up.name}</h6>
+                                <p className='font-primary font-13 opacity-8 pb-3'>{up.author}</p>
+                                <p className='font-primary font-13 mb-1 opacity-8 pt-1 pb-3'>Giá: {up.price}VND</p>
+                              </div>
+                              <div className='h-25 d-flex align-items-center justify-content-center'>
+                                <button className='buy-btn' onClick={() => {
+                                  if (up.quantity === 0) {
+                                    toast.error("Hết sách mất rồi!!")
+                                  } else {
+                                      setP2([...p2, up._id])
+                                      if (p1.includes(up._id) || cart.includes(up)) {
+                                      toast.error("Có sách này trong giỏ rồi!")
+                                      console.log(p2)
+                                    } 
+                                    else {
+                                      setCart([...cart, up])
+                                      localStorage.setItem('cart', JSON.stringify([...cart, up]))
+                                      toast.success("Đã thêm vào giỏ sách của bạn!!!")
+                                    }
+                                  }
+                                }}>Thuê ngay</button>
+                              </div>
                           </div>
                           <div className='book-card-img'>
-                            <img src={`/api/v1/product/product-image/${p._id}`} className="" width={"200px"} height={"250px"} alt={p.name} />
+                            <img src={`/api/v1/product/product-image/${up._id}`} className="" width={"200px"} height={"250px"} alt={up.name} />
                           </div>
                       </div>
                   </div>

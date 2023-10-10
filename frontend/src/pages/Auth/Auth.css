@@ -13,13 +13,6 @@
 }
 
 .register-form {
-    position: absolute;
-    top: 10%;
-    left: 35%;
-    right: 35%;
-    bottom: 10%;
-    width: 30%;
-    height: 80%;
     background: #fff;
     padding: 40px;
     border-radius: 20px;
@@ -126,13 +119,6 @@
 
 .login-form,
 .forgot-form {
-    position: absolute;
-    top: 10%;
-    left: 35%;
-    right: 35%;
-    bottom: 40%;
-    width: 30%;
-    height: 50%;
     background: #fff;
     padding: 40px;
     border-radius: 20px;

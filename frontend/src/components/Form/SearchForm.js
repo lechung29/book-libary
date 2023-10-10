@@ -21,7 +21,7 @@ const SearchForm = () => {
     }
   return (
     <>
-        <form className='search-form' role='search' onSubmit={handleSubmit}>
+        <form style={{minWidth: '300px'}} className='search-form' role='search' onSubmit={handleSubmit}>
             <input 
                 className='search__input font-primary font-13'
                 type='search'

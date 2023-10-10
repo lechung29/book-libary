@@ -24,7 +24,7 @@ const Cart = () => {
         }
     }
     //Xóa sách trong giỏ
-    const removeCartItem = (pid) => {
+    const removeCartItem = async (pid) => {
         try {
             let myCart = [...cart]
             let index = myCart.findIndex(item => item._id === pid)
@@ -58,44 +58,46 @@ const Cart = () => {
             <div className='home-section px-5 pt-4 pb-5'>
                 <div className='container-fluid'>
                     <div className='row d-flex justify-content-center mb-4'>
-                        <div className='col-6 d-flex home-border gap-10 pt-5 justify-content-center'>
+                        <div className='col-lg-6 col-md-9 col-sm-12 d-flex home-border gap-10 pt-5 justify-content-center'>
                             <h3 className='home-title text-decoration-underline font-primary fw-bold text-uppercase text-success'>Giỏ sách</h3>
                             <h3 className='home-title font-primary fw-bold text-uppercase text-warning-emphasis'> của tôi</h3>
                         </div>
                     </div>
                     <div className='row d-flex justify-content-center mb-4'>
                         <div className='col-6 d-flex justify-content-center'>
-                            <h5 className='font-primary font-15 opacity-8'>{cart?.length > 1 ? `Bạn có ${cart.length} cuốn sách trong giỏ ${auth?.token ? "" : ". Vui lòng đăng nhập để thanh toán"}` : "Giỏ sách của bạn đang trống"}</h5>
+                            <h5 className='font-primary font-15 opacity-8'>{cart?.length > 0 ? `Bạn có ${cart.length} cuốn sách trong giỏ ${auth?.token ? "" : ". Vui lòng đăng nhập để thanh toán"}` : "Giỏ sách của bạn đang trống"}</h5>
                         </div>
                     </div>
-                    <div className='row d-flex justify-content-center mb-2'>
+                    <div className='row d-flex justify-content-center mb-2' style={{minHeight: '150px'}}>
                         <div className='col-6 d-flex flex-wrap justify-content-center'>
                             {
                                 cart?.map(p => (
-                                    <div className='d-flex cart-items' key={p._id}>
-                                        <div className='col-4'>
-                                            <img src={`/api/v1/product/product-image/${p._id}`} className="" width={"75%"} height={"75%"} alt={p.name} />
+                                    <>
+                                        <div key={p._id} className='d-flex flex-wrap gap-15 justify-content-center pb-5 cart-items' >
+                                            <div className='col-xl-3 col-md-6 col-sm-12 text-center'>
+                                                <img src={`/api/v1/product/product-image/${p._id}`} className="" width={"160px"} height={"250px"} alt={p.name} />
+                                            </div>
+                                            <div className='col-xl-6 col-md-6 col-sm-12  py-2'>
+                                                <h3 className='font-primary fw-semibold text-sm-center text-uppercase mb-3'>{p.name}</h3>
+                                                <p className='font-primary font-14 opacity-8 mb-0 py-1'>Tác giả: {p.author}</p>
+                                                <p className='font-primary font-14 opacity-8 mb-1 py-1'>Mô tả sách: {p.description.substring(0,100)}...</p>
+                                                <p className='font-primary font-14 opacity-8 mb-0 py-1'>Giá thuê: {p.price}VND</p>
+                                            </div>
+                                            <div className='col-xl-1 col-md-12 col-sm-12 pt-xl-5 mt-xl-4 d-flex justify-content-center'>
+                                                <button className='remove-btn' onClick={() => removeCartItem(p._id)}>
+                                                    <SlTrash />
+                                                    <span className='remove-text'>Xóa</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className='col-6 py-2'>
-                                            <h3 className='font-primary fw-semibold text-uppercase mb-3'>{p.name}</h3>
-                                            <p className='font-primary font-14 opacity-8 mb-0 py-1'>Tác giả: {p.author}</p>
-                                            <p className='font-primary font-14 opacity-8 mb-1 py-1'>Mô tả sách: {p.description}...</p>
-                                            <p className='font-primary font-14 opacity-8 mb-0 py-1'>Giá thuê: {p.price}VND</p>
-                                        </div>
-                                        <div className='col-2 pt-5 mt-4 d-flex justify-content-center'>
-                                            <button className='remove-btn' onClick={() => removeCartItem(p._id)}>
-                                                <SlTrash />
-                                                <span className='remove-text'>Xóa</span>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </>
                                 ))
                             }
                         </div>
                     </div>
                     
                     <div className='row  d-flex justify-content-center'>
-                        <div className='col-6 home-border d-flex justify-content-between py-3'>
+                        <div className='col-lg-6 col-md-9 col-sm-12 home-border d-flex justify-content-between py-3'>
                             <div className='col-6 text-start'>
                                 <span className='font-primary font-16 fw-semibold'>Tổng cộng: {totalPrice()}VND</span>
                             </div>

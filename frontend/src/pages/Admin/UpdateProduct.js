@@ -103,13 +103,13 @@ const UpdateProduct = () => {
         <div className='dashboard-section px-5 pt-2 pb-5'>
           <div className='container-fluid pt-4'>
             <div className='row d-flex justify-content-center'>
-              <div className='col-10 pt-5 justify-content-center home-border d-flex'></div>
+              <div className='col-11 pt-5 justify-content-center home-border d-flex'></div>
             </div>
             <div className='row d-flex justify-content-center'>
-              <div className='col-4 d-flex justify-content-center'>
+              <div className='col-lg-4 col-sm-12 mb-5 d-flex justify-content-center'>
                 <AdminMenu />
               </div>
-              <div className='col-8 d-flex justify-content-center'>
+              <div className='col-lg-8 col-sm-12 mb-5 d-flex justify-content-center'>
                 <div className='admin-content'>
                   <h2 className='admin-content-title py-4 text-center text-uppercase'>Quản lý sách</h2>
                   <div className='admin-content-manage'>

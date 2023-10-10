@@ -4,7 +4,7 @@ import './AdminMenu.css'
 const AdminMenu = () => {
   return (
     <>
-       <div className="admin-menu pb-4">
+       <div className="admin-menu pb-4" style={{minWidth: '360px', maxWidth: '400px'}}>
             <h2 className='admin-menu-title py-4 mb-3 text-center text-uppercase'>Quản lý</h2>
             <div className='admin-menu-list gap-20 d-flex flex-column align-items-center'>
                 <NavLink to="/dashboard/admin/create-category" className="">

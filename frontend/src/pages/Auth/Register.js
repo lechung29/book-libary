@@ -37,7 +37,7 @@ const Register = () => {
     <>
         <Layout title={"Đăng ký tài khoản"}>
             <div className='register-section position-relative px-5 py-4'>
-                <div className='register-form'>
+                <div className='register-form col-sm-12 col-md-6 col-lg-4' style={{minHeight : '400px', minWidth: '420px'}}>
                     <h1 className='register-title pb-4'>Đăng ký</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3 user-box">
